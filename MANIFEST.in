@@ -1,0 +1,3 @@
+include .pre-commit-hooks.yaml
+include prek.toml
+recursive-include tests *.py
