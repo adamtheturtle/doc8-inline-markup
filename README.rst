@@ -32,13 +32,3 @@ cannot parse is outside the check's scope.
 
 If you used rst-inline-markup-lint, replace that dependency with
 doc8-inline-markup and remove any standalone hook entry for the old package.
-
-Development
------------
-
-Run the tests and all lint stages with uv::
-
-    uv run pytest --cov
-    uv run prek run --all-files --hook-stage pre-commit
-    uv run prek run --all-files --hook-stage pre-push
-    uv run prek run --all-files --hook-stage manual
