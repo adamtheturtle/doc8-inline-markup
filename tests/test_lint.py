@@ -1,15 +1,12 @@
-"""Exercise the linter through Docutils and the installed command."""
+"""Exercise the inline-markup check through Docutils."""
 
 from __future__ import annotations
 
-import codecs
-import shutil
-import subprocess
 from typing import TYPE_CHECKING
 
 import pytest
 
-from rst_inline_markup_lint import lint
+from doc8_inline_markup._rst import lint
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -47,58 +44,3 @@ def test_include_is_not_read(*, tmp_path: Path) -> None:
     _ = included.write_text("**``event_id``**\n", encoding="utf-8")
     source = tmp_path / "guide.rst"
     assert lint(text=".. include:: included.rst\n", source=str(source)) == []
-
-
-def test_cli(*, tmp_path: Path) -> None:
-    """Check the installed command's output and exit codes."""
-    command = shutil.which("rst-inline-markup-lint")
-    assert command is not None
-    clean = tmp_path / "clean.rst"
-    bad = tmp_path / "bad.rst"
-    missing = tmp_path / "missing.rst"
-    invalid = tmp_path / "invalid.rst"
-    _ = clean.write_text("``event_id`` deduplication\n", encoding="utf-8")
-    _ = bad.write_bytes(codecs.BOM_UTF8 + b"\n**``event_id``**\n")
-    _ = invalid.write_bytes(b"\xff")
-
-    result = subprocess.run(
-        [command, str(clean)],
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    assert (result.returncode, result.stdout, result.stderr) == (0, "", "")
-
-    result = subprocess.run(
-        [command, str(clean), str(bad)],
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    diagnostic = f"{bad}:2: RST001 Move inline code outside emphasis.\n"
-    assert (result.returncode, result.stdout, result.stderr) == (
-        1,
-        diagnostic,
-        "",
-    )
-
-    result = subprocess.run(
-        [command, str(missing), str(bad), str(invalid)],
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    assert result.returncode == 2
-    assert result.stdout == diagnostic
-    assert f"{missing}:" in result.stderr
-    assert f"{invalid}:" in result.stderr
-
-    result = subprocess.run(
-        [command],
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    assert result.returncode == 2
-    assert result.stdout == ""
-    assert "FILE" in result.stderr

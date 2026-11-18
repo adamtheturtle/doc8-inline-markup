@@ -130,14 +130,6 @@ hooks = [
     stages = ["pre-commit"]
   },
   {
-    id = "rst-inline-markup-lint",
-    name = "Check reStructuredText for inline literals inside emphasis",
-    entry = "uv run --group=dev rst-inline-markup-lint",
-    language = "system",
-    types = ["rst"],
-    stages = ["pre-commit"]
-  },
-  {
     id = "mypy",
     name = "mypy",
     entry = "uv run --group=dev mypy",

@@ -1,1 +1,1 @@
-"""Tests for rst-inline-markup-lint."""
+"""Tests for doc8-inline-markup."""

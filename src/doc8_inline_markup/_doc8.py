@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, override
 
 from doc8.checks import ContentCheck
 
-from rst_inline_markup_lint import DIAGNOSTIC_CODE, DIAGNOSTIC_MESSAGE, lint
+from doc8_inline_markup._rst import lint
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
@@ -14,10 +14,14 @@ if TYPE_CHECKING:
     from doc8.parser import ParsedFile
 
 
+_DIAGNOSTIC_CODE = "RST001"
+_DIAGNOSTIC_MESSAGE = "Move inline code outside emphasis."
+
+
 class CheckInlineMarkup(ContentCheck):
     """Report inline literals inside reStructuredText emphasis."""
 
-    REPORTS = frozenset({DIAGNOSTIC_CODE})
+    REPORTS = frozenset({_DIAGNOSTIC_CODE})
 
     @override
     def report_iter(
@@ -29,4 +33,4 @@ class CheckInlineMarkup(ContentCheck):
                 text=parsed_file.contents,
                 source=parsed_file.filename,
             ):
-                yield line, DIAGNOSTIC_CODE, DIAGNOSTIC_MESSAGE
+                yield line, _DIAGNOSTIC_CODE, _DIAGNOSTIC_MESSAGE
