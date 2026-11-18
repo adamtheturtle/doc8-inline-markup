@@ -19,7 +19,7 @@ Installation
 Install the plugin in the same environment as doc8. For a uv project,
 add it as a development dependency::
 
-    uv add --dev "doc8-inline-markup @ git+https://github.com/adamtheturtle/doc8-inline-markup@2026.11.18.2"
+    uv add --dev doc8-inline-markup
 
 Run doc8 as usual::
 
