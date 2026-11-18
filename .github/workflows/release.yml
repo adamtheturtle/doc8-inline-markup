@@ -1,0 +1,33 @@
+---
+name: Release
+
+on:
+  push:
+    tags: ['[0-9]*']
+
+permissions: {}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@v10.3.3
+
+      - name: Build and check distributions
+        run: |
+          uv build
+          uv run --group=release check-wheel-contents dist/*.whl
+          uv run --group=release twine check --strict dist/*
+
+      - name: Create a GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: gh release create "$RELEASE_TAG" --verify-tag --generate-notes dist/*

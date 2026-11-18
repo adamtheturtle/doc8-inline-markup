@@ -1,0 +1,118 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+    "setuptools",
+    "setuptools-scm>=8.1.0",
+]
+
+[project]
+name = "rst-inline-markup-lint"
+description = "Lint reStructuredText for inline literals inside emphasis."
+readme = { file = "README.rst", content-type = "text/x-rst" }
+keywords = [
+    "lint",
+    "restructuredtext",
+]
+license = "MIT"
+authors = [
+    { name = "Adam Dangoor", email = "adamdangoor@gmail.com" },
+]
+requires-python = ">=3.12"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dynamic = [
+    "version",
+]
+dependencies = [
+    "docutils>=0.21,<0.24",
+]
+urls.Source = "https://github.com/adamtheturtle/rst-inline-markup-lint"
+scripts.rst-inline-markup-lint = "rst_inline_markup_lint._cli:main"
+
+[dependency-groups]
+dev = [
+    "actionlint-py==1.7.12.25",
+    "check-manifest==0.51",
+    "doc8==2.0.0",
+    "mypy==2.4.1",
+    "prek==0.5.10",
+    "pyproject-fmt==2.30.6",
+    "pytest==9.2.0",
+    "pytest-cov==7.1.0",
+    "ruff==0.17.5",
+    "shellcheck-py==0.11.0.1",
+    "sphinx-lint==1.0.2",
+    "types-docutils==0.23.0.20261107",
+]
+release = [
+    "check-wheel-contents==0.6.3",
+    "twine>=6.2",
+]
+
+[tool.setuptools]
+packages.find.where = [
+    "src",
+]
+package-data.rst_inline_markup_lint = [
+    "py.typed",
+]
+zip-safe = false
+
+[tool.setuptools_scm]
+version_scheme = "post-release"
+
+[tool.ruff]
+line-length = 79
+lint.select = [
+    "ALL",
+]
+lint.ignore = [
+    "COM812",
+    "CPY001",
+    "D205",
+    "ISC001",
+    "S101",
+]
+lint.per-file-ignores."tests/*.py" = [
+    "PLR2004",
+    "S603",
+]
+lint.pydocstyle.convention = "google"
+
+[tool.pyproject-fmt]
+indent = 4
+keep_full_version = true
+max_supported_python = "3.15"
+
+[tool.mypy]
+files = [
+    "src",
+    "tests",
+]
+strict = true
+
+[tool.pytest]
+strict = true
+
+[tool.coverage]
+run.source = [
+    "src/",
+    "tests/",
+]
+run.branch = true
+run.patch = [ "subprocess" ]
+report.fail_under = 100
+report.exclude_also = [
+    "if TYPE_CHECKING:",
+]
+report.show_missing = true

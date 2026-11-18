@@ -1,0 +1,173 @@
+# Configuration file for `prek`, a git hook framework written in Rust.
+# See https://prek.j178.dev for more information.
+#:schema https://www.schemastore.org/prek.json
+
+fail_fast = true
+default_install_hook_types = [
+  "pre-commit",
+  "pre-push"
+  ]
+
+[[repos]]
+repo = "meta"
+hooks = [
+  {
+    id = "check-useless-excludes",
+    stages = ["pre-commit"]
+  }
+]
+
+[[repos]]
+repo = "https://github.com/pre-commit/pre-commit-hooks"
+rev = "v6.0.0"
+hooks = [
+  {
+    id = "check-added-large-files",
+    stages = ["pre-commit"]
+  },
+  {
+    id = "check-case-conflict",
+    stages = ["pre-commit"]
+  },
+  {
+    id = "check-executables-have-shebangs",
+    stages = ["pre-commit"]
+  },
+  {
+    id = "check-merge-conflict",
+    stages = ["pre-commit"]
+  },
+  {
+    id = "check-shebang-scripts-are-executable",
+    stages = ["pre-commit"]
+  },
+  {
+    id = "check-symlinks",
+    stages = ["pre-commit"]
+  },
+  {
+    id = "check-json",
+    stages = ["pre-commit"]
+  },
+  {
+    id = "check-toml",
+    stages = ["pre-commit"]
+  },
+  {
+    id = "check-vcs-permalinks",
+    stages = ["pre-commit"]
+  },
+  {
+    id = "check-yaml",
+    stages = ["pre-commit"]
+  },
+  {
+    id = "end-of-file-fixer",
+    stages = ["pre-commit"]
+  },
+  {
+    id = "trailing-whitespace",
+    stages = ["pre-commit"]
+  }
+]
+
+[[repos]]
+repo = "https://github.com/pre-commit/pygrep-hooks"
+rev = "v1.10.0"
+hooks = [
+  {
+    id = "rst-directive-colons",
+    stages = ["pre-commit"]
+  },
+  {
+    id = "rst-inline-touching-normal",
+    stages = ["pre-commit"]
+  },
+  {
+    id = "text-unicode-replacement-char",
+    stages = ["pre-commit"]
+  },
+  {
+    id = "rst-backticks",
+    stages = ["pre-commit"]
+  }
+]
+
+
+[[repos]]
+repo = "local"
+hooks = [
+  {
+    id = "actionlint",
+    name = "actionlint",
+    entry = "uv run --group=dev actionlint",
+    language = "system",
+    files = '^\.github/workflows/.*\.ya?ml$',
+    stages = ["pre-commit"]
+  },
+  {
+    id = "ruff-check",
+    name = "ruff check",
+    entry = "uv run --group=dev ruff check --fix",
+    language = "system",
+    types = ["python"],
+    stages = ["pre-commit"]
+  },
+  {
+    id = "ruff-format",
+    name = "ruff format",
+    entry = "uv run --group=dev ruff format",
+    language = "system",
+    types = ["python"],
+    stages = ["pre-commit"]
+  },
+  {
+    id = "pyproject-fmt",
+    name = "pyproject-fmt",
+    entry = "uv run --group=dev pyproject-fmt",
+    language = "system",
+    files = '^pyproject\.toml$',
+    stages = ["pre-commit"]
+  },
+  {
+    id = "rst-inline-markup-lint",
+    name = "Check reStructuredText for inline literals inside emphasis",
+    entry = "uv run --group=dev rst-inline-markup-lint",
+    language = "system",
+    types = ["rst"],
+    stages = ["pre-commit"]
+  },
+  {
+    id = "mypy",
+    name = "mypy",
+    entry = "uv run --group=dev mypy",
+    language = "system",
+    types = ["python"],
+    pass_filenames = false,
+    stages = ["pre-push"]
+  },
+  {
+    id = "doc8",
+    name = "doc8",
+    entry = "uv run --group=dev doc8",
+    language = "system",
+    types = ["rst"],
+    stages = ["pre-push"]
+  },
+  {
+    id = "sphinx-lint",
+    name = "sphinx-lint",
+    entry = "uv run --group=dev sphinx-lint --enable=all --disable=line-too-long",
+    language = "system",
+    types = ["rst"],
+    stages = ["pre-push"]
+  },
+  {
+    id = "check-manifest",
+    name = "check-manifest",
+    entry = "uv run --group=dev check-manifest",
+    language = "system",
+    pass_filenames = false,
+    stages = ["manual"]
+  }
+]
