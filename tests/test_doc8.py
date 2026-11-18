@@ -31,7 +31,11 @@ def test_doc8(
     command = shutil.which("doc8")
     assert command is not None
     source = tmp_path / filename
-    _ = source.write_text(f"Sample\n======\n\n{content}", encoding="utf-8")
+    _ = source.write_text(
+        f"Sample\n======\n\n{content}",
+        encoding="utf-8",
+        newline="\n",
+    )
 
     result = subprocess.run(
         [command, "--quiet", str(source)],
