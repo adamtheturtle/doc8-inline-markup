@@ -37,11 +37,26 @@ Add this repository to your hook configuration:
 
     repos:
       - repo: https://github.com/adamtheturtle/rst-inline-markup-lint
-        rev: '2026.11.18'
+        rev: '2026.11.18.1'
         hooks:
           - id: rst-inline-markup-lint
 
 The hook runs on reStructuredText files and uses Python 3.12 or newer.
+
+doc8
+----
+
+Install the optional adapter in the same environment as doc8. For a uv
+project, add it as a development dependency::
+
+    uv add --dev "rst-inline-markup-lint[doc8] @ git+https://github.com/adamtheturtle/rst-inline-markup-lint@2026.11.18.1"
+
+Run doc8 as usual::
+
+    uv run doc8 docs/guide.rst
+
+doc8 discovers the check automatically and reports RST001 for .rst files.
+Use doc8's standard ignore settings to suppress a diagnostic when needed.
 
 Development
 -----------
