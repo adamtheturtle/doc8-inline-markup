@@ -14,6 +14,9 @@ if TYPE_CHECKING:
     from re import Match
     from types import SimpleNamespace
 
+DIAGNOSTIC_CODE = "RST001"
+DIAGNOSTIC_MESSAGE = "Move inline code outside emphasis."
+
 type _InlineResult = tuple[
     str, list[nodes.Node], str, list[nodes.system_message]
 ]

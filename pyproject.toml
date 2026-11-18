@@ -36,8 +36,10 @@ dynamic = [
 dependencies = [
     "docutils>=0.21,<0.24",
 ]
+optional-dependencies.doc8 = [ "doc8>=2,<3" ]
 urls.Source = "https://github.com/adamtheturtle/rst-inline-markup-lint"
 scripts.rst-inline-markup-lint = "rst_inline_markup_lint._cli:main"
+entry-points."doc8.extension.check".rst-inline-markup-lint = "rst_inline_markup_lint._doc8:CheckInlineMarkup"
 
 [dependency-groups]
 dev = [
@@ -100,6 +102,7 @@ files = [
     "tests",
 ]
 strict = true
+overrides = [ { module = [ "doc8.checks", "doc8.parser" ], follow_untyped_imports = true } ]
 
 [tool.pytest]
 strict = true

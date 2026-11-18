@@ -4,7 +4,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from rst_inline_markup_lint import lint
+from rst_inline_markup_lint import DIAGNOSTIC_CODE, DIAGNOSTIC_MESSAGE, lint
 
 
 def main() -> int:
@@ -26,7 +26,7 @@ def main() -> int:
 
         for line in lint(text=text, source=str(path)):
             print(  # noqa: T201
-                f"{path}:{line}: RST001 Move inline code outside emphasis."
+                f"{path}:{line}: {DIAGNOSTIC_CODE} {DIAGNOSTIC_MESSAGE}"
             )
             status = max(status, 1)
     return status
