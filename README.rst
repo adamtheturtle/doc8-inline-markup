@@ -1,9 +1,9 @@
-RST Inline Markup Lint
-======================
+doc8 Inline Markup
+==================
 
-Check reStructuredText for inline literals inside bold or italic text.
-Docutils treats the inner backticks as text, which makes the code render
-with visible backticks. This linter reports the location as RST001.
+A doc8 plugin that detects inline literals inside bold or italic
+reStructuredText. Docutils treats the inner backticks as text, which
+makes the code render with visible backticks. The check reports RST001.
 
 For example, change this note::
 
@@ -13,50 +13,25 @@ to::
 
     .. note:: ``event_id`` deduplication
 
-Command line
+Installation
 ------------
 
-Run the linter directly from GitHub with uv::
+Install the plugin in the same environment as doc8. For a uv project,
+add it as a development dependency::
 
-    uvx --from git+https://github.com/adamtheturtle/rst-inline-markup-lint rst-inline-markup-lint docs/guide.rst
-
-Pass one or more UTF-8 files. Diagnostics use the format
-``path:line: RST001 message``. The exit status is 0 for clean files,
-1 for lint errors, and 2 for unreadable files or invalid arguments.
-
-The linter checks each file with the standard Docutils RST parser. It skips
-code blocks and comments. Run it on included files directly. Content in
-extension directives that Docutils cannot parse is outside its scope.
-
-prek and pre-commit
--------------------
-
-Add this repository to your hook configuration:
-
-.. code-block:: yaml
-
-    repos:
-      - repo: https://github.com/adamtheturtle/rst-inline-markup-lint
-        rev: '2026.11.18.1'
-        hooks:
-          - id: rst-inline-markup-lint
-
-The hook runs on reStructuredText files and uses Python 3.12 or newer.
-
-doc8
-----
-
-Install the optional adapter in the same environment as doc8. For a uv
-project, add it as a development dependency::
-
-    uv add --dev "rst-inline-markup-lint[doc8] @ git+https://github.com/adamtheturtle/rst-inline-markup-lint@2026.11.18.1"
+    uv add --dev "doc8-inline-markup @ git+https://github.com/adamtheturtle/doc8-inline-markup@2026.11.18.2"
 
 Run doc8 as usual::
 
     uv run doc8 docs/guide.rst
 
-doc8 discovers the check automatically and reports RST001 for .rst files.
-Use doc8's standard ignore settings to suppress a diagnostic when needed.
+doc8 discovers the plugin automatically. It checks .rst files, skips code
+blocks and comments, and supports doc8's standard ignore settings. Run doc8
+on included files directly. Content in extension directives that Docutils
+cannot parse is outside the check's scope.
+
+If you used rst-inline-markup-lint, replace that dependency with
+doc8-inline-markup and remove any standalone hook entry for the old package.
 
 Development
 -----------

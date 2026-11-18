@@ -1,6 +1,0 @@
----
-- id: rst-inline-markup-lint
-  name: Check reStructuredText for inline literals inside emphasis
-  entry: rst-inline-markup-lint
-  language: python
-  types: [rst]

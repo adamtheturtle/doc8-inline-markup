@@ -6,11 +6,11 @@ requires = [
 ]
 
 [project]
-name = "rst-inline-markup-lint"
-description = "Lint reStructuredText for inline literals inside emphasis."
+name = "doc8-inline-markup"
+description = "A doc8 plugin for inline literals inside reStructuredText emphasis."
 readme = { file = "README.rst", content-type = "text/x-rst" }
 keywords = [
-    "lint",
+    "doc8",
     "restructuredtext",
 ]
 license = "MIT"
@@ -34,12 +34,11 @@ dynamic = [
     "version",
 ]
 dependencies = [
+    "doc8>=2,<3",
     "docutils>=0.21,<0.24",
 ]
-optional-dependencies.doc8 = [ "doc8>=2,<3" ]
-urls.Source = "https://github.com/adamtheturtle/rst-inline-markup-lint"
-scripts.rst-inline-markup-lint = "rst_inline_markup_lint._cli:main"
-entry-points."doc8.extension.check".rst-inline-markup-lint = "rst_inline_markup_lint._doc8:CheckInlineMarkup"
+urls.Source = "https://github.com/adamtheturtle/doc8-inline-markup"
+entry-points."doc8.extension.check".doc8-inline-markup = "doc8_inline_markup._doc8:CheckInlineMarkup"
 
 [dependency-groups]
 dev = [
@@ -65,7 +64,7 @@ release = [
 packages.find.where = [
     "src",
 ]
-package-data.rst_inline_markup_lint = [
+package-data.doc8_inline_markup = [
     "py.typed",
 ]
 zip-safe = false
