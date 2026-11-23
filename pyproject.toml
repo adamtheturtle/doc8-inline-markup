@@ -50,7 +50,7 @@ dev = [
     "pyproject-fmt==2.30.6",
     "pytest==9.2.0",
     "pytest-cov==7.1.0",
-    "ruff==0.17.5",
+    "ruff==0.17.6",
     "shellcheck-py==0.11.0.1",
     "sphinx-lint==1.0.2",
     "types-docutils==0.23.0.20261107",
