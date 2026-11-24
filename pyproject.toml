@@ -47,7 +47,7 @@ dev = [
     "doc8==2.0.0",
     "mypy==2.4.1",
     "prek==0.5.11",
-    "pyproject-fmt==2.30.6",
+    "pyproject-fmt==2.31.2",
     "pytest==9.2.0",
     "pytest-cov==7.1.0",
     "ruff==0.17.6",
